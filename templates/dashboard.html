@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Spatial Web{% endblock %}
+
+{% block content %}
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2>Spatial Gene Viewer</h2>
+    <a href="/logout">退出</a>
+</div>
+
+<!-- Plot：后端当前只收 gene（如果你想支持 library/layer/basis，我再帮你把 main.py 对齐） -->
+<form method="POST" action="/plot" style="margin-top: 12px; display:flex; gap:8px; align-items:flex-end;">
+    <div>
+        <label>gene</label><br>
+        <input name="gene" value="{{ last_gene or '' }}" placeholder="e.g. Gfap" required>
+    </div>
+    <div>
+        <button type="submit">Plot</button>
+    </div>
+    {% if cache_hit is defined %}
+    <div style="color:#666; padding-bottom:6px;">
+        {% if cache_hit %}cache hit{% else %}new render{% endif %}
+    </div>
+    {% endif %}
+</form>
+
+{% if png_url %}
+<div style="margin-top: 16px;">
+    <h3>结果</h3>
+    <div style="margin:8px 0;">
+        <a href="{{ png_url }}" target="_blank">打开 PNG</a>
+    </div>
+    <img src="{{ png_url }}?t={{ (range(1, 999999)|random) }}" style="max-width:100%; border:1px solid #ddd;">
+</div>
+
+<hr style="margin: 18px 0;">
+
+<h3>导出</h3>
+
+<!-- PDF 导出 -->
+<form method="POST" action="/export" style="display:flex; gap:8px; align-items:flex-end; margin-top:8px;">
+    <input type="hidden" name="gene" value="{{ last_gene }}">
+    <input type="hidden" name="export_type" value="pdf">
+    <button type="submit">导出 PDF</button>
+</form>
+
+<!-- TIFF 导出 -->
+<form method="POST" action="/export" style="display:flex; gap:8px; align-items:flex-end; margin-top:8px;">
+    <input type="hidden" name="gene" value="{{ last_gene }}">
+    <input type="hidden" name="export_type" value="tiff">
+    <div>
+        <label>dpi</label><br>
+        <select name="dpi">
+            <option value="150">150</option>
+            <option value="300" selected>300</option>
+            <option value="600">600</option>
+            <option value="1200">1200</option>
+        </select>
+    </div>
+    <button type="submit">导出 TIFF</button>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Login - Spatial Web{% endblock %}
+
+{% block content %}
+<h2>登录</h2>
+
+{% if error %}
+<div style="padding:10px; border:1px solid #f1c0c0; background:#fff3f3; color:#900; margin:12px 0;">
+    {{ error }}
+</div>
+{% endif %}
+
+<form method="POST" action="/login" style="margin-top: 12px;">
+    <div>
+        <label>用户名</label><br>
+        <input name="username" autocomplete="username" required>
+    </div>
+
+    <div style="margin-top: 8px;">
+        <label>密码</label><br>
+        <input name="password" type="password" autocomplete="current-password" required>
+    </div>
+
+    <div style="margin-top: 12px;">
+        <button type="submit">登录</button>
+    </div>
+</form>
+{% endblock %}

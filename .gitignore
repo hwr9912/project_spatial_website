@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env / secrets
+.env
+
+# Large data & generated outputs
+data/
+cache/
+figures/
+*.h5ad
+*.pdf
+*.png
+*.tiff
+
+# password
+auth.json
+
+# OS
+.DS_Store

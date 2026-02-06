@@ -1,0 +1,43 @@
+2026-02-05 18:11:30,243 | WARNING | RenderError PLOT_FAILED: 绘图失败。 | ValueError("Found `library_id: `['MCAO_14d', 'MCAO_1d', 'MCAO_3d', 'sham'] but no `library_key` was specified. Please specify `library_key`.")
+2026-02-05 18:54:17,828 | INFO | plot | lib=sham gene=Gfap cache_hit=False out=Gfap.png
+2026-02-05 18:59:32,446 | INFO | plot | lib=sham gene=Gfap cache_hit=True out=Gfap.png
+2026-02-05 19:00:51,026 | INFO | export | lib=sham gene=Gfap pdf_cache_hit=False mode=vector
+2026-02-05 19:02:48,671 | INFO | export | lib=sham gene=Gfap pdf_cache_hit=True mode=600
+2026-02-05 19:02:48,866 | WARNING | ConvertError CONVERT_FAILED: PDF 转 PNG 失败。 | ValueError("Image format 1770289368 not in ('png', 'pnm', 'pgm', 'ppm', 'pbm', 'pam', 'psd', 'ps', 'jpg', 'jpeg')")
+2026-02-05 19:10:29,496 | INFO | plot | lib=sham gene=Gfap cache_hit=True out=Gfap.png
+2026-02-05 19:10:37,292 | INFO | export | lib=sham gene=Gfap pdf_cache_hit=True mode=vector
+2026-02-05 19:25:14,474 | INFO | export | lib=sham gene=Gfap pdf_cache_hit=True mode=600
+2026-02-05 19:25:14,547 | WARNING | ConvertError CONVERT_FAILED: PDF 转 PNG 失败。 | ValueError("Image format 1770290714 not in ('png', 'pnm', 'pgm', 'ppm', 'pbm', 'pam', 'psd', 'ps', 'jpg', 'jpeg')")
+2026-02-05 19:25:46,467 | INFO | export | lib=sham gene=Gfap pdf_cache_hit=True mode=600
+2026-02-05 19:25:46,545 | WARNING | ConvertError CONVERT_FAILED: PDF 转 PNG 失败。 | ValueError("Image format 1770290746 not in ('png', 'pnm', 'pgm', 'ppm', 'pbm', 'pam', 'psd', 'ps', 'jpg', 'jpeg')")
+2026-02-05 19:26:05,729 | INFO | export | lib=sham gene=Gfap pdf_cache_hit=True mode=300
+2026-02-05 19:26:05,782 | WARNING | ConvertError CONVERT_FAILED: PDF 转 PNG 失败。 | ValueError("Image format 1770290765 not in ('png', 'pnm', 'pgm', 'ppm', 'pbm', 'pam', 'psd', 'ps', 'jpg', 'jpeg')")
+2026-02-05 20:46:57,235 | INFO | plot | gene=Lyz2 cache_hit=False out=Lyz2.png
+2026-02-05 20:49:49,205 | INFO | plot | gene=Gfap cache_hit=True out=Gfap.png
+2026-02-05 20:50:44,693 | INFO | export | type=pdf gene=Gfap cache_hit=False out=Gfap.pdf
+2026-02-05 20:51:18,743 | INFO | export | type=tiff dpi=300 gene=Gfap cache_hit=False out=Gfap_300.tiff
+2026-02-05 20:54:49,283 | INFO | export | type=pdf gene=Gfap cache_hit=True out=Gfap.pdf
+2026-02-05 20:54:57,172 | INFO | export | type=tiff dpi=300 gene=Gfap cache_hit=True out=Gfap_300.tiff
+2026-02-05 20:58:06,884 | INFO | plot | gene=Gfap cache_hit=True out=Gfap.png
+2026-02-05 21:03:08,664 | INFO | plot | gene=Ccl3 cache_hit=False out=Ccl3.png
+2026-02-05 21:03:08,835 | INFO | plot | gene=Ccl3 cache_hit=True out=Ccl3.png
+2026-02-05 21:03:28,773 | INFO | export | type=pdf gene=Ccl3 cache_hit=False out=Ccl3.pdf
+2026-02-05 21:03:43,034 | INFO | export | type=tiff dpi=300 gene=Ccl3 cache_hit=False out=Ccl3_300.tiff
+2026-02-05 22:49:55,949 | INFO | plot | gene=Lyz2 cache_hit=True out=Lyz2.png
+2026-02-05 22:50:10,882 | INFO | export | type=pdf gene=Lyz2 cache_hit=False out=Lyz2.pdf
+2026-02-05 22:50:48,908 | INFO | export | type=tiff dpi=600 gene=Lyz2 cache_hit=False out=Lyz2_600.tiff
+2026-02-05 22:55:53,237 | INFO | plot | gene=Spp1 cache_hit=False out=Spp1.png
+2026-02-05 22:57:01,793 | INFO | plot | gene=major_region cache_hit=False out=major_region.png
+2026-02-05 22:58:06,622 | WARNING | RenderError GENE_NOT_FOUND: 基因不存在：sgd_dk_jndsdfgjnkld | in_var=False, in_obs=False, in_raw=False
+2026-02-05 22:58:41,479 | WARNING | RenderError GENE_NOT_FOUND: 基因不存在：sudo_rm-_rf | in_var=False, in_obs=False, in_raw=False
+2026-02-05 23:30:30,593 | INFO | plot | gene=Gfap cache_hit=True out=Gfap.png
+2026-02-05 23:30:30,826 | WARNING | RenderError GENE_NOT_FOUND: 基因不存在：Ggap | in_var=False, in_obs=False, in_raw=False
+2026-02-05 23:39:10,013 | WARNING | RenderError GENE_NOT_FOUND: 基因不存在：Prx1 | in_var=False, in_obs=False, in_raw=False
+2026-02-05 23:41:24,426 | WARNING | RenderError LOCK_TIMEOUT: 当前任务排队超时（可能同一张图正在被生成）。 | /home/ubuntu/project_spatial_website/figures/bin100/locks/Prdx1.plot_png.lock
+2026-02-05 23:48:54,555 | WARNING | RenderError LOCK_TIMEOUT: 当前任务排队超时（可能同一张图正在被生成）。 | /home/ubuntu/project_spatial_website/figures/bin100/locks/Prdx1.plot_png.lock
+2026-02-06 04:02:35,396 | INFO | plot | gene=P2ry12 cache_hit=False out=P2ry12.png
+2026-02-06 04:03:08,188 | INFO | plot | gene=Itgam cache_hit=False out=Itgam.png
+2026-02-06 04:03:19,245 | INFO | plot | gene=Ccl3 cache_hit=True out=Ccl3.png
+2026-02-06 04:03:27,965 | INFO | plot | gene=P2ry12 cache_hit=True out=P2ry12.png
+2026-02-06 04:03:33,916 | INFO | plot | gene=Lyz2 cache_hit=True out=Lyz2.png
+2026-02-06 04:03:40,679 | WARNING | RenderError GENE_NOT_FOUND: 基因不存在：Lyz | in_var=False, in_obs=False, in_raw=False
