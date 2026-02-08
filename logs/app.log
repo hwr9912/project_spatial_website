@@ -62,3 +62,5 @@
 2026-02-08 14:05:25,897 | INFO | plot | library=sham gene=Lyz2 cache_hit=True out=sham__Lyz2.png
 2026-02-08 14:05:32,607 | INFO | plot | library=MCAO_3d gene=Lyz2 cache_hit=True out=MCAO_3d__Lyz2.png
 2026-02-08 14:05:38,889 | INFO | plot | library=MCAO_14d gene=Lyz2 cache_hit=True out=MCAO_14d__Lyz2.png
+2026-02-08 17:11:39,738 | INFO | plot | library=sham gene=Crh cache_hit=False out=sham__Crh.png
+2026-02-08 17:13:47,778 | INFO | plot | library=sham gene=major_region cache_hit=False out=sham__major_region.png
