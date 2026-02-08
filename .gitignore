@@ -9,7 +9,6 @@ __pycache__/
 data/
 cache/
 figures/
-*.log
 *.h5ad
 *.pdf
 *.png
