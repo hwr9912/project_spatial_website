@@ -33,19 +33,14 @@ if not logger.handlers:
     fh.setFormatter(fmt)
     logger.addHandler(fh)
 
-
 # -----------------------------
 # FastAPI app
 # -----------------------------
 app = FastAPI(title="Spatial Website", version="0.3.0")
-
-# Session secret：生产环境请用强随机串（环境变量 SESSION_SECRET）
 app.add_middleware(SessionMiddleware, secret_key=cfg.SESSION_SECRET)
 
-# static + templates
 app.mount("/static", StaticFiles(directory=str(cfg.PROJECT_ROOT / "static")), name="static")
 templates = Jinja2Templates(directory=str(cfg.PROJECT_ROOT / "templates"))
-
 
 # -----------------------------
 # auth helpers
@@ -76,7 +71,6 @@ def render_error_handler(_: Request, exc: RenderError):
         content={"ok": False, "error": {"code": exc.code, "message": exc.message, "detail": exc.detail}},
     )
 
-
 # -----------------------------
 # routes: entry
 # -----------------------------
@@ -85,7 +79,6 @@ def index(request: Request):
     if require_login(request):
         return RedirectResponse(url="/dashboard", status_code=303)
     return RedirectResponse(url="/login", status_code=303)
-
 
 # -----------------------------
 # routes: auth pages
@@ -117,7 +110,6 @@ def logout(request: Request):
     request.session.clear()
     return RedirectResponse(url="/login", status_code=303)
 
-
 # -----------------------------
 # routes: pages
 # -----------------------------
@@ -127,15 +119,17 @@ def dashboard(request: Request):
         return RedirectResponse(url="/login", status_code=303)
 
     last_gene = request.session.get("last_gene")
+    selected_library = request.session.get("selected_library")
+
     return templates.TemplateResponse(
         "dashboard.html",
         {
             "request": request,
             "last_gene": last_gene,
+            "selected_library": selected_library,  # 预留：你以后想让下拉框默认选中就用它
             "png_url": f"/img/png/{last_gene}" if last_gene else None,
         },
     )
-
 
 # -----------------------------
 # routes: plot workflow
@@ -143,6 +137,7 @@ def dashboard(request: Request):
 @app.post("/plot", response_class=HTMLResponse)
 def plot_action(
     request: Request,
+    library: str = Form(...),
     gene: str = Form(...),
 ):
     """
@@ -153,20 +148,28 @@ def plot_action(
     if not require_login(request):
         return RedirectResponse(url="/login", status_code=303)
 
-    gene = gene.strip()
+    library = (library or "").strip()
+    gene = (gene or "").strip()
+
+    if not library:
+        raise RenderError("BAD_INPUT", "library 不能为空。")
     if not gene:
         raise RenderError("BAD_INPUT", "gene 不能为空。")
 
-    res = ensure_plot_png(gene=gene)
-    request.session["last_gene"] = res.gene
+    res = ensure_plot_png(gene=gene, library=library)
 
-    logger.info(f"plot | gene={res.gene} cache_hit={res.cache_hit} out={res.out_path.name}")
+    # 保存用户最近一次选择，后续 img/export 复用
+    request.session["last_gene"] = res.gene
+    request.session["selected_library"] = library
+
+    logger.info(f"plot | library={library} gene={res.gene} cache_hit={res.cache_hit} out={res.out_path.name}")
 
     return templates.TemplateResponse(
         "dashboard.html",
         {
             "request": request,
             "last_gene": res.gene,
+            "selected_library": library,
             "png_url": f"/img/png/{res.gene}",
             "cache_hit": res.cache_hit,
         },
@@ -179,14 +182,16 @@ def serve_plot_png(request: Request, gene: str):
     if not require_login(request):
         return RedirectResponse(url="/login", status_code=303)
 
-    gene = gene.strip()
+    gene = (gene or "").strip()
     if not gene:
         raise RenderError("BAD_INPUT", "gene 不能为空。")
 
-    res = ensure_plot_png(gene=gene)
+    # 关键：用 session 里的 library，避免刷新图片时回到默认库
+    library = (request.session.get("selected_library") or "").strip() or None
+
+    res = ensure_plot_png(gene=gene, library=library)
     headers = {"X-Cache-Hit": "1" if res.cache_hit else "0"}
     return FileResponse(res.out_path.as_posix(), media_type="image/png", headers=headers)
-
 
 # -----------------------------
 # routes: export workflow
@@ -197,6 +202,7 @@ def export_action(
     gene: str = Form(...),
     export_type: Literal["pdf", "tiff"] = Form(...),
     dpi: Optional[int] = Form(None),
+    library: Optional[str] = Form(None),  # dashboard.html 目前没传，这里做兼容
 ):
     """
     Export:
@@ -206,13 +212,18 @@ def export_action(
     if not require_login(request):
         return RedirectResponse(url="/login", status_code=303)
 
-    gene = gene.strip()
+    gene = (gene or "").strip()
     if not gene:
         raise RenderError("BAD_INPUT", "gene 不能为空。")
 
+    # library 优先级：表单 > session > None(走 render.py 默认库策略)
+    lib = (library or "").strip() or (request.session.get("selected_library") or "").strip() or None
+    if lib:
+        request.session["selected_library"] = lib
+
     if export_type == "pdf":
-        res = ensure_export_pdf(gene=gene)
-        logger.info(f"export | type=pdf gene={res.gene} cache_hit={res.cache_hit} out={res.out_path.name}")
+        res = ensure_export_pdf(gene=gene, library=lib)
+        logger.info(f"export | type=pdf library={lib} gene={res.gene} cache_hit={res.cache_hit} out={res.out_path.name}")
         return FileResponse(
             res.out_path.as_posix(),
             media_type="application/pdf",
@@ -223,15 +234,15 @@ def export_action(
     # tiff
     if dpi is None:
         raise RenderError("BAD_INPUT", "导出 tiff 必须提供 dpi。")
-    res = ensure_export_tiff(gene=gene, dpi=int(dpi))
-    logger.info(f"export | type=tiff dpi={dpi} gene={res.gene} cache_hit={res.cache_hit} out={res.out_path.name}")
+
+    res = ensure_export_tiff(gene=gene, dpi=int(dpi), library=lib)
+    logger.info(f"export | type=tiff dpi={dpi} library={lib} gene={res.gene} cache_hit={res.cache_hit} out={res.out_path.name}")
     return FileResponse(
         res.out_path.as_posix(),
         media_type="image/tiff",
         filename=res.out_path.name,
         headers={"Content-Disposition": f'attachment; filename="{res.out_path.name}"'},
     )
-
 
 # -----------------------------
 # routes: health

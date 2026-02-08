@@ -191,13 +191,14 @@ def _draw(
             spatial_key=basis,
             library_key="library",
             library_id=[library],
+            title=f"{library}_{gene}",
             img=False,
             shape="square",
             size=size,
             alpha=1.0,
             na_color="lightgray",
             frameon=False,
-            legend_loc=None,
+            # legend_loc=None,
             cmap="viridis",
             ax=ax,
             fig=fig,
@@ -236,8 +237,8 @@ def ensure_plot_png(
     gene = _safe_gene(gene)
     library = library or _pick_default_library()
 
-    out_path = cfg.PNG_DIR / f"{gene}.png"
-    lock_path = cfg.LOCK_DIR / f"{gene}.plot_png.lock"
+    out_path = cfg.PNG_DIR / f"{library}__{gene}.png"
+    lock_path = cfg.LOCK_DIR / f"{library}__{gene}.plot_png.lock"
 
     if out_path.exists():
         return RenderResult(gene=gene, out_path=out_path, cache_hit=True)
@@ -277,8 +278,8 @@ def ensure_export_pdf(
     gene = _safe_gene(gene)
     library = library or _pick_default_library()
 
-    out_path = cfg.PDF_DIR / f"{gene}.pdf"
-    lock_path = cfg.LOCK_DIR / f"{gene}.export_pdf.lock"
+    out_path = cfg.PDF_DIR / f"{library}__{gene}.pdf"
+    lock_path = cfg.LOCK_DIR / f"{library}__{gene}.export_pdf.lock"
 
     if out_path.exists():
         return RenderResult(gene=gene, out_path=out_path, cache_hit=True)
@@ -325,8 +326,8 @@ def ensure_export_tiff(
             detail=f"allowed={sorted(list(cfg.ALLOWED_EXPORT_DPI))}, got={dpi}",
         )
 
-    out_path = cfg.TIFF_DIR / f"{gene}_{int(dpi)}.tiff"
-    lock_path = cfg.LOCK_DIR / f"{gene}.export_tiff_{int(dpi)}.lock"
+    out_path = cfg.TIFF_DIR / f"{library}__{gene}_{int(dpi)}.tiff"
+    lock_path = cfg.LOCK_DIR / f"{library}__{gene}.export_tiff_{int(dpi)}.lock"
 
     if out_path.exists():
         return RenderResult(gene=gene, out_path=out_path, cache_hit=True)

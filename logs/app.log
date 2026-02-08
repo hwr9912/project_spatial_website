@@ -41,3 +41,24 @@
 2026-02-06 04:03:27,965 | INFO | plot | gene=P2ry12 cache_hit=True out=P2ry12.png
 2026-02-06 04:03:33,916 | INFO | plot | gene=Lyz2 cache_hit=True out=Lyz2.png
 2026-02-06 04:03:40,679 | WARNING | RenderError GENE_NOT_FOUND: 基因不存在：Lyz | in_var=False, in_obs=False, in_raw=False
+2026-02-06 18:24:20,001 | INFO | plot | gene=Piezo1 cache_hit=False out=Piezo1.png
+2026-02-06 18:24:20,105 | INFO | plot | gene=Piezo1 cache_hit=True out=Piezo1.png
+2026-02-06 18:30:40,941 | INFO | export | type=tiff dpi=300 gene=Piezo1 cache_hit=False out=Piezo1_300.tiff
+2026-02-06 18:33:49,541 | INFO | export | type=pdf gene=Piezo1 cache_hit=False out=Piezo1.pdf
+2026-02-06 18:33:49,650 | INFO | export | type=pdf gene=Piezo1 cache_hit=True out=Piezo1.pdf
+2026-02-06 18:46:06,612 | INFO | plot | library=MCAO_3d gene=Gfap cache_hit=True out=Gfap.png
+2026-02-06 18:46:11,673 | INFO | plot | library=MCAO_1d gene=Gfap cache_hit=True out=Gfap.png
+2026-02-06 18:46:16,259 | INFO | plot | library=sham gene=Gfap cache_hit=True out=Gfap.png
+2026-02-06 18:58:24,099 | INFO | plot | library=sham gene=Gfap cache_hit=False out=sham__Gfap.png
+2026-02-06 18:58:45,780 | INFO | plot | library=MCAO_1d gene=Gfap cache_hit=False out=MCAO_1d__Gfap.png
+2026-02-06 18:59:29,388 | INFO | plot | library=sham gene=Lyz2 cache_hit=False out=sham__Lyz2.png
+2026-02-06 18:59:59,411 | INFO | plot | library=MCAO_1d gene=Lyz2 cache_hit=False out=MCAO_1d__Lyz2.png
+2026-02-06 19:00:39,717 | INFO | plot | library=MCAO_3d gene=Lyz2 cache_hit=False out=MCAO_3d__Lyz2.png
+2026-02-06 19:01:14,486 | INFO | plot | library=MCAO_14d gene=Lyz2 cache_hit=False out=MCAO_14d__Lyz2.png
+2026-02-06 19:01:40,444 | INFO | plot | library=MCAO_14d gene=major_region cache_hit=False out=MCAO_14d__major_region.png
+2026-02-06 19:04:32,907 | INFO | plot | library=MCAO_14d gene=major_region cache_hit=True out=MCAO_14d__major_region.png
+2026-02-06 19:06:28,875 | INFO | plot | library=MCAO_14d gene=major_region cache_hit=True out=MCAO_14d__major_region.png
+2026-02-06 19:08:59,251 | INFO | plot | library=MCAO_14d gene=major_region cache_hit=True out=MCAO_14d__major_region.png
+2026-02-08 14:05:25,897 | INFO | plot | library=sham gene=Lyz2 cache_hit=True out=sham__Lyz2.png
+2026-02-08 14:05:32,607 | INFO | plot | library=MCAO_3d gene=Lyz2 cache_hit=True out=MCAO_3d__Lyz2.png
+2026-02-08 14:05:38,889 | INFO | plot | library=MCAO_14d gene=Lyz2 cache_hit=True out=MCAO_14d__Lyz2.png
