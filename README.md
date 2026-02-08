@@ -35,7 +35,6 @@ project_spatial_website/
 │   └── dashboard.html
 ├── data/              # （不纳入 git）空间转录组 AnnData 数据
 ├── figures/           # （不纳入 git）绘图输出结果
-├── cache/             # （不纳入 git）中间缓存文件
 ├── logs/              # （不纳入 git）运行日志
 └── README.md
 
